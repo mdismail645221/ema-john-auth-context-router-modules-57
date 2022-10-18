@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/UseContext";
 import './Login.css'
 
-const Login = () =>{
+const Login = () => {
+    
+    const {signInEmailPassword} = useContext(AuthContext)
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('')
@@ -22,6 +25,22 @@ const Login = () =>{
         }else{
             setSuccess('Successfully matched the number.')
         }
+
+        // --------------------------------------
+        // Sign In with Firebase authentication methods
+        // -------------------------------------
+        signInEmailPassword(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+            })
+            .catch(error => {
+                const Usererror = error;
+                const errorMsg = error.message;
+                console.log(Usererror, errorMsg)
+        })
+
+
     }
 
 
