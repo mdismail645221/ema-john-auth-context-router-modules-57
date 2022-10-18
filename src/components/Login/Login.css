@@ -1,0 +1,33 @@
+h3{
+    text-align: center;
+    font-size: 1.5rem;
+}
+.form-container{
+    width: 500px;
+    height: 600px;
+    border: 1px solid #ddd;
+    margin: 20px auto;
+    padding: 40px;
+    box-shadow: 5px 10px 10px #ddd;
+    border-radius: 10px;
+}
+
+.form-control{
+    border: 1px solid #eee;
+    margin: 20px 0px;
+    overflow: hidden;
+}
+
+.form-control input{
+    width: 96%;
+    height: 40px;
+    margin: 20px 0;
+    padding-left: 10px;
+}
+
+.form-control a {
+    text-decoration: none;
+}
+.form-control a:hover {
+    text-decoration: underline;
+}
