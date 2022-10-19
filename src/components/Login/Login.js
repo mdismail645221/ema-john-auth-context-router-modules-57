@@ -1,11 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/UseContext";
 import './Login.css'
 
+
 const Login = () => {
-    
-    const {signInEmailPassword} = useContext(AuthContext)
+
+    const navigate = useNavigate()
+    const { signInEmailPassword } = useContext(AuthContext)
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/';
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('')
@@ -16,15 +20,14 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
-        console.log(email, password, confirm)
+        // console.log(email, password, confirm)
 
-        // console.log(error)
         if(password !== confirm){
             setError(`Don't Matched password & confirm number.  Please Matched the password and confirm number.`);
             // return;
-        }else{
-            setSuccess('Successfully matched the number.')
         }
+           
+        
 
         // --------------------------------------
         // Sign In with Firebase authentication methods
@@ -32,12 +35,16 @@ const Login = () => {
         signInEmailPassword(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user)
+                // console.log(user);
+                form.reset();
+                setSuccess('Successfully Login .')
+                navigate(from, {replace: true})
             })
             .catch(error => {
-                const Usererror = error;
-                const errorMsg = error.message;
-                console.log(Usererror, errorMsg)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorCode, errorMessage);
+                setError(errorMessage)
         })
 
 
@@ -62,7 +69,13 @@ const Login = () => {
                 <label htmlFor="confirm">Confirm</label><br></br>
                 <input type="password" name="confirm" placeholder="confirm" required />
                 <input type="submit" value='Login' />
-                {error? error : success}
+                <div>
+                    {error ?
+                        <p className="errorMsg">{error}</p>
+                        :
+                        <p className="successMsg">{success}</p>
+                    }
+                </div>
                 <p>New to ema-john <Link to='/register'>Create a New Account</Link></p>
             </div>
 

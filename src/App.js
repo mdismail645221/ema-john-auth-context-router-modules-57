@@ -8,6 +8,8 @@ import Inventory from './components/Inventory/Inventory';
 import { productsAndCartLoader } from './loaders/productsAndCartLoader';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Spipping from './components/Spipping/Spipping';
+import PrivateRoute from './routes/PrivateRoute';
 
 
 function App() {
@@ -22,6 +24,11 @@ function App() {
           element: <Shop></Shop>
         },
         {
+          path: 'shop',
+          loader: () => fetch('products.json'),
+          element: <Shop></Shop>
+        },
+        {
           path:'orders',
           loader: productsAndCartLoader,
           element: <Orders></Orders>
@@ -29,6 +36,10 @@ function App() {
         {
           path: 'inventory',
           element: <Inventory></Inventory>,
+        },
+        {
+          path: 'shipping',
+          element:<PrivateRoute><Spipping></Spipping></PrivateRoute>
         },
         {
           path:'about',
@@ -41,7 +52,7 @@ function App() {
         {
           path: 'register',
           element: <Register></Register>
-        }
+        },
       ]
     },
     

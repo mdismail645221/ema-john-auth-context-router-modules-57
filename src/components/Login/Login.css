@@ -31,3 +31,11 @@ h3{
 .form-control a:hover {
     text-decoration: underline;
 }
+
+
+.successMsg{
+    color: green;
+}
+.errorMsg {
+    color: red;
+}
